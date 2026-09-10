@@ -1,0 +1,8 @@
+node_modules/
+.wrangler/
+.openai/
+*.html
+!dist/index.html
+middle-bay-rules.jpg
+*.tar.gz
+.env*

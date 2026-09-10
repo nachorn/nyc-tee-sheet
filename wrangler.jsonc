@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "nyc-tee-sheet-api",
+  "account_id": "f9f85d661365014797c981e98bcb3f94",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-09-09",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": {"enabled": true,"head_sampling_rate": 0.1},
+  "vars": {"ALLOWED_ORIGIN": "https://nachorn.github.io"}
+}
