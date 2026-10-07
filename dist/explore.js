@@ -25,11 +25,12 @@ export function liveDateSupported(date,now=new Date()){
   if(!Number.isFinite(parsed.getTime())||parsed.toISOString().slice(0,10)!==date)return false;
   const today=nyDate(now);return date>=today&&date<=shiftDate(today,31);
 }
-export function filterCourses(courses,{region='All',favoritesOnly=false,favorites=new Set(),query='',liveOnly=false}={}){
+export function filterCourses(courses,{region='All',favoritesOnly=false,favorites=new Set(),query='',liveOnly=false,holes='All',transport='All'}={}){
   const terms=query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   return courses.filter(c=>{
     const text=`${c.name} ${c.place} ${c.region} ${c.travel?.mode||''} ${c.travel?.station||''}`.toLowerCase();
-    return (region==='All'||c.region===region)&&(!favoritesOnly||favorites.has(c.id))&&(!liveOnly||c.live)&&terms.every(term=>text.includes(term));
+    const route=transport==='All'||(transport==='New Jersey'?['NJT','PATH'].includes(c.travel?.mode):transport==='Ferry'?c.travel?.mode?.startsWith('Ferry'):c.travel?.mode===transport);
+    return (region==='All'||c.region===region)&&(!favoritesOnly||favorites.has(c.id))&&(!liveOnly||c.live)&&(holes==='All'||c.holes===Number(holes))&&route&&terms.every(term=>text.includes(term));
   });
 }
 export function sortCourses(courses,sort,favorites,availability=new Map()){

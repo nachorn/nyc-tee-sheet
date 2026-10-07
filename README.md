@@ -10,8 +10,14 @@ A mobile golf guide to 27 public courses around New York City, Westchester, Gree
 - Quick date buttons, adjustable preferred window, and browser-local planning settings.
 - Bulk feed checks, visible-card freshness updates, and a round-details handoff before opening a booking portal.
 - Distinct unknown, unavailable-feed, and empty-result states. No reservations are made by this app.
+- Preferred-times-only results check every candidate feed and keep unsupported or failed feeds in a separate portal list. Existing matches stay visible during refresh.
+- Course-size and transit filters, with compact phone controls.
+- Shareable course/date/player/window/time links that exclude personal addresses, plus transit planning inside the round preview.
+- Calendar file downloads for future, verified reservation openings. Reminders include the applicable booking category and handle New York daylight saving time; importing a file does not reserve a round.
 
 The six initially favorited courses are Griffith E. Harris, Bethpage Black, Lido, Middle Bay, Pelham Bay, and Split Rock. Grand Central is the shared default travel origin. A private `#start=` link can initialize another address locally; the fragment is removed immediately and never sent to the server.
+
+Round links use an allowlisted fragment: course ID, valid play date, party size, preferred window, and optional tee-off minute. Opening a shared round preserves the recipient's local starting point. The link is consumed and removed from the address bar. Native sharing is used when available, with clipboard/manual-copy fallbacks. Booking reminders are standard `.ics` files that users import into their own calendars; the app never writes to a calendar account.
 
 ## Run and check
 

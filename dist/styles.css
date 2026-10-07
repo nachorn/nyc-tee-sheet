@@ -128,6 +128,8 @@ summary::-webkit-details-marker {display:none}
 .status.waiting {color:#8a6422}
 .status.unsure {color:#6f6e5e}
 .status-icon {font-size:13px;flex:none}
+.booking-audience {display:block;font-size:10px;line-height:1.5;margin-top:4px;color:#65765c;letter-spacing:.025em}
+.reminder-button {display:flex;align-items:center;gap:8px;background:transparent;border:0;padding:9px 0 0;min-height:38px;font-size:11px;font-weight:600;text-decoration:underline;text-underline-offset:3px;color:var(--forest)}
 .course-alert {font-size:12px;padding:10px;background:#fff3db;line-height:1.6;border-radius:5px;color:#75551c;margin-bottom:14px}
 .course-alert a {display:inline-block}
 .tee-times {margin-bottom:15px;min-height:26px}
@@ -148,6 +150,9 @@ summary::-webkit-details-marker {display:none}
 .book-link {display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding:12px 14px;min-height:46px;border:1px solid var(--forest);border-radius:6px;font-weight:600;text-decoration:none;font-size:13px;background:var(--forest);color:white;transition:background .15s}
 .book-link:hover {background:#255746}
 .book-link span:last-child {font-size:18px;line-height:1}
+.card-actions {display:grid;grid-template-columns:minmax(0,1fr) 46px;gap:8px}
+.plan-button {display:grid;place-items:center;min-height:46px;background:white;border:1px solid #bdccb8;color:var(--forest)}
+.plan-button:hover {background:#edf4e3}
 .course-card details {border-top:1px solid var(--line)}
 .course-card summary {padding:14px 21px;font-size:12px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:46px}
 .course-card summary::after {content:'+';font-size:19px;color:#718572;font-weight:400}
@@ -190,6 +195,41 @@ dialog::backdrop {background:#082a2394;backdrop-filter:blur(3px)}
 dialog h2 {font-size:27px;margin:18px 0}
 .booking-details {white-space:pre-line;font-size:17px;font-weight:600;line-height:1.8;background:#edf4e3;border-radius:7px;padding:13px 15px;margin-bottom:18px}
 .dialog-note {font-size:13px;line-height:1.7;color:var(--muted);margin-bottom:22px}
+.zone-tag {font-size:10px;color:#d0dfc1;font-weight:400;margin-left:5px}
+.matching-filter {display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 8px;min-height:44px}
+.matching-filter label {display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;cursor:pointer;min-height:44px}
+.matching-filter input {width:18px;height:18px;accent-color:var(--forest);margin:0}
+.matching-filter>span {font-size:11px;color:var(--muted);white-space:nowrap}
+.filter-panel {border:1px solid var(--line);border-radius:7px;background:#fafbf8}
+.filter-panel summary {display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;padding:12px 14px;list-style:none;font-size:12px;font-weight:600}
+.filter-panel summary>span {display:flex;flex-wrap:wrap;gap:5px 14px}
+.filter-panel summary small {font-size:11px;font-weight:400;color:var(--muted)}
+.filter-panel summary::after {content:'+';font-size:19px;font-weight:400;color:#6d8267}
+.filter-panel[open] summary::after {content:'−'}
+.filter-panel-content {padding:3px 14px 10px}
+.extra-filters {display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.extra-filters label {display:block;font-size:11px;color:var(--muted);margin-bottom:6px}
+.extra-filters select {min-height:44px;width:100%;min-width:0;border:1px solid #cad7c3;background:white;color:var(--ink);font-size:13px;padding:9px}
+.match-message {padding:20px;border:1px dashed #bfceb5;border-radius:9px;background:#fafcf6;margin-bottom:14px;font-size:13px;line-height:1.7;color:var(--muted)}
+.match-message p {margin:0}
+.match-message button {font-size:12px;min-height:44px;margin-top:5px}
+.portal-fallbacks {border:1px solid var(--line);background:white;border-radius:9px;margin-top:16px;overflow:hidden}
+.portal-fallbacks summary {list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px;font-size:13px;font-weight:600;min-height:48px}
+.portal-fallbacks details>p {padding:0 17px;font-size:12px;line-height:1.7;color:var(--muted);margin-bottom:13px}
+.portal-rows>div {display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:12px 17px}
+.portal-rows strong {display:block;font-size:13px;font-weight:600;line-height:1.5}
+.portal-rows small {display:block;font-size:11px;color:var(--muted);line-height:1.6;margin-top:2px}
+.portal-rows a {font-size:12px;white-space:nowrap;min-height:44px;align-content:center}
+.shared-round-note {padding:10px 13px;border-left:2px solid #98b46c;background:#edf3e5;font-size:12px;line-height:1.6;margin:12px 0 0}
+.booking-travel {padding:13px 15px;border:1px solid var(--line);border-radius:7px;margin-bottom:18px;font-size:12px;line-height:1.6}
+.booking-travel p {margin:6px 0}
+.booking-travel small {display:block;font-size:11px;color:var(--muted);margin-top:6px}
+.booking-travel a {display:block;padding:5px 0;font-size:12px}
+.share-round {width:100%;background:#edf4e4;border:1px solid #d3dfc8;color:var(--forest);font-size:13px;font-weight:600;min-height:46px;padding:12px;margin-top:10px}
+.share-status {font-size:11px;line-height:1.6;color:var(--muted);margin:10px 0 0}
+#share-link-label {display:block;font-size:11px;line-height:1.6;margin-top:12px}
+#share-link {width:100%;min-width:0;padding:10px;border:1px solid var(--line);font-size:13px;margin-top:6px}
+dialog {max-height:calc(100dvh - 32px);overflow:auto}
 @keyframes pulse {50% {opacity:.5}}
 @media(min-width:1350px) {.card-main {padding:24px}.course-card summary {padding-inline:24px}.rules {padding-inline:24px}}
 @media(max-width:1120px) {
@@ -207,7 +247,7 @@ dialog h2 {font-size:27px;margin:18px 0}
   .page-heading {margin-bottom:20px}
   .eyebrow {font-size:10px;margin-bottom:8px}
   h1 {font-size:29px;max-width:345px;line-height:1.16;margin-bottom:8px}
-  .heading-copy {font-size:12px;line-height:1.6}
+  .heading-copy {display:none}
   .edition {display:none}
   .workspace {display:flex;flex-direction:column;gap:22px}
   .planner {position:static;width:100%}
@@ -217,7 +257,7 @@ dialog h2 {font-size:27px;margin:18px 0}
   .planner label {font-size:11px;margin-bottom:6px}
   .planner input,.planner select {min-height:44px;padding:9px;font-size:16px}
   .quick-dates {display:flex;gap:6px;margin-top:10px}
-  .quick-dates button {flex:1;font-size:11px;min-height:34px;padding:8px 4px}
+  .quick-dates button {flex:1;font-size:11px;min-height:44px;padding:8px 4px}
   .date-hint {display:none}
   .window-settings {margin-top:12px}
   .window-settings summary {padding-top:12px;font-size:11px;min-height:30px}
@@ -240,11 +280,11 @@ dialog h2 {font-size:27px;margin:18px 0}
   .search-row {grid-template-columns:minmax(0,1fr) 138px;gap:7px;margin-bottom:12px}
   .search-field input {font-size:16px;min-height:44px;padding:11px 9px 11px 34px}
   .search-field svg {left:10px;top:13px;width:17px;height:17px}
-  .sort-field select {min-height:44px;font-size:11px;padding:8px 4px}
+  .sort-field select {min-height:44px;font-size:13px;padding:8px}
   .boroughs {flex-wrap:nowrap;overflow:auto;padding:2px 2px 6px;margin-inline:-2px;scrollbar-width:thin}
-  .boroughs span {font-size:11px;padding:9px 11px;min-height:36px}
+  .boroughs span {font-size:11px;padding:13px 11px;min-height:44px}
   .filter-row {margin-top:5px}
-  .live-filter {font-size:11px;min-height:32px}
+  .live-filter {font-size:12px;min-height:44px}
   .course-toolbar {margin-bottom:10px}
   .availability-bar {gap:10px;padding:10px 11px;margin-bottom:13px;align-items:center}
   .availability-bar p {font-size:11px;line-height:1.5}
@@ -265,10 +305,30 @@ dialog h2 {font-size:27px;margin:18px 0}
   .live-meta button {font-size:12px}
   .course-card .more-slots summary {font-size:12px;min-height:40px}
   .book-link {min-height:48px;font-size:14px}
+  .plan-button {min-height:48px}
   .course-card summary {padding:14px 19px;font-size:13px;min-height:49px}
   .rules {padding:0 19px 18px;font-size:14px}
   .travel-details summary strong {font-size:12px}
   .empty {padding:27px 20px}
+  .matching-filter {gap:8px;margin-bottom:5px}
+  .matching-filter label {font-size:12px}
+  .matching-filter>span {font-size:10px}
+  .filter-panel summary {font-size:12px;padding:11px 12px}
+  .filter-panel summary>span {display:block}
+  .filter-panel summary small {display:block;line-height:1.5;margin-top:3px}
+  .filter-panel-content {padding-inline:12px}
+  .extra-filters {gap:9px}
+  .extra-filters select {font-size:16px;padding:8px 5px}
+  .portal-fallbacks summary {font-size:12px;padding:15px}
+  .portal-rows>div {padding:10px 15px}
+  .portal-rows strong {font-size:12px}
+  .portal-rows a {font-size:11px}
+  .match-message {padding:16px;font-size:12px}
+  .reminder-button {min-height:44px}
+  dialog {padding:24px}
+  dialog h2 {font-size:25px;margin:16px 0}
+  .booking-details {font-size:15px;padding:12px}
+  #share-link {font-size:16px}
   footer {display:block;margin-top:30px;padding-top:20px;font-size:11px}
   footer p {margin:10px 0}
   footer>a {display:inline-block;min-height:32px}

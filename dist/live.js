@@ -93,16 +93,16 @@ function slotGrid(slots,course,date,players){
   const grid=document.createElement('div');grid.className='slot-grid';
   for(const slot of slots){
     const button=element('button',slot.label,`slot${slot.preferred?' preferred':''}`);button.type='button';
-    button.dataset.slotCourse=course.id;button.dataset.slotLabel=slot.label;button.dataset.slotDate=date;button.dataset.slotPlayers=players;
+    button.dataset.slotCourse=course.id;button.dataset.slotLabel=slot.label;button.dataset.slotMinutes=slot.minutes;button.dataset.slotDate=date;button.dataset.slotPlayers=players;
     button.setAttribute('aria-label',`Review ${slot.label} at ${course.name}, ${players} ${players===1?'player':'players'}`);grid.append(button);
   }
   return grid;
 }
 export function mountAvailability(container,course,date,players,{window=DEFAULT_WINDOW,onChange=()=>{}}={}){
-  const lifecycle=new AbortController();let active=true,busy=null,latestCheck=0,observer;
-  const emit=value=>{if(active)onChange(value);};
+  const lifecycle=new AbortController();let active=true,busy=null,latestCheck=0,observer,lastReady;
+  const emit=value=>{if(value.state==='ready')lastReady=value;if(active)onChange(value.state==='loading'&&lastReady?{...lastReady,state:'loading'}:value);};
   const visible=()=>{const rect=container.getBoundingClientRect();return rect.bottom>0&&rect.top<globalThis.innerHeight+250;};
-  const controller={load,refreshIfStale:()=>{if(visible()&&Date.now()-latestCheck>=60000)return load();},destroy:()=>{active=false;observer?.disconnect();lifecycle.abort();}};
+  const controller={load,refreshIfStale:(includeHidden=false)=>{if((includeHidden||visible())&&Date.now()-latestCheck>=60000)return load();},destroy:()=>{active=false;observer?.disconnect();lifecycle.abort();}};
   container.replaceChildren();
   if(!course.live){container.append(element('p','Check the official portal for tee times.','live-unavailable'));emit({state:'portal'});return controller;}
   if(!liveDateSupported(date)){container.append(element('p','Use the booking window to plan ahead. Live checks cover today through the next 31 days.','live-message'));emit({state:'future'});return controller;}
@@ -122,7 +122,7 @@ export function mountAvailability(container,course,date,players,{window=DEFAULT_
         latestCheck=result.checkedAt;
         const preferred=slots.filter(s=>s.preferred),other=slots.filter(s=>!s.preferred);
         container.replaceChildren();
-        const heading=element('div',windowLabel(window),'live-heading');heading.append(element('span',`${preferred.length} ${preferred.length===1?'time':'times'}`,preferred.length?'match-count':'no-match-count'));container.append(heading);
+        const heading=element('div',windowLabel(window)+' ET','live-heading');heading.append(element('span',`${preferred.length} ${preferred.length===1?'time':'times'}`,preferred.length?'match-count':'no-match-count'));container.append(heading);
         if(preferred.length){
           container.append(slotGrid(preferred.slice(0,6),course,date,players));
           if(preferred.length>6){const details=element('details','','more-slots');details.dataset.section='preferred';details.open=expanded.has('preferred');details.append(element('summary',`Show ${preferred.length-6} more in this window`),slotGrid(preferred.slice(6),course,date,players));container.append(details);}
