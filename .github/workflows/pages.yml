@@ -21,7 +21,7 @@ jobs:
       - name: Validate app
         run: |
           node scripts/check.mjs
-          node --test tests/booking.test.mjs
+          node --test tests/*.test.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

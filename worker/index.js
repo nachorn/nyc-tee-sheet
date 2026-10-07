@@ -2,6 +2,14 @@ const COURSES=Object.freeze({lido:{schedule:'9011',bookingClass:'13654'},weequah
 const MAX_BYTES=1024*1024;
 const json=(value,status=200,origin='')=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...(origin?{'Access-Control-Allow-Origin':origin,'Vary':'Origin'}:{})}});
 export function validDate(value){if(!/^\d{4}-\d{2}-\d{2}$/.test(value||''))return false;const date=new Date(`${value}T12:00:00Z`);return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;}
+const nyDateFormat=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'});
+export function dateInRange(value,now=new Date()){
+  if(!validDate(value))return false;
+  const parts=nyDateFormat.formatToParts(now),part=type=>parts.find(p=>p.type===type).value;
+  const today=`${part('year')}-${part('month')}-${part('day')}`;
+  const days=(Date.parse(`${value}T12:00:00Z`)-Date.parse(`${today}T12:00:00Z`))/86400000;
+  return days>=0&&days<=31;
+}
 export function cleanTimes(payload,date){
   if(!Array.isArray(payload))throw new Error('Invalid tee sheet');
   return payload.map(tee=>{
@@ -30,8 +38,7 @@ export default {
     if(url.pathname!=='/api/tee-times')return json({error:'Not found'},404,origin);
     const courseId=url.searchParams.get('course'),date=url.searchParams.get('date'),course=COURSES[courseId];
     if(!course||!validDate(date))return json({error:'Choose a supported course and a valid date'},400,origin);
-    const days=(new Date(`${date}T12:00:00Z`)-new Date())/86400000;
-    if(days < -1||days > 31)return json({error:'Date must be within the next 30 days'},400,origin);
+    if(!dateInRange(date))return json({error:'Date must be today through the next 31 days in New York time'},400,origin);
     const cacheUrl=new URL('/api/tee-times',url.origin);cacheUrl.searchParams.set('course',courseId);cacheUrl.searchParams.set('date',date);
     const cacheKey=new Request(cacheUrl.href);const edgeCache=globalThis.caches?.default;
     if(edgeCache){const hit=await edgeCache.match(cacheKey);if(hit){const response=new Response(hit.body,hit);response.headers.set('Cache-Control','no-store');if(origin)response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Vary','Origin');return response;}}
